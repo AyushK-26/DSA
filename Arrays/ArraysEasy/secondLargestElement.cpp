@@ -3,47 +3,48 @@
 #include <algorithm>
 using namespace std;
 
-int main() {
-    int n;
-    cin>>n;
 
-    vector<int> arr(n);
+// BRUTE        TC = O(n*logn + n)      SC = O(n) MS / O(1) QS
 
-    for(int &i : arr) cin>>i;
+int brute(vector<int> &arr, int n) {
 
-    // BRUTE        TC = O(n*logn + n)      SC = O(n) MS / O(1) QS
+    sort(arr.begin(), arr.end());
+    int largest = arr[n-1];
+    int sLargest = -1;
+    for(int i = n-2; i >= 0; i--) {
+        if(arr[i] != largest) {
+            sLargest = arr[i];
+            break;
+        }
+    }
 
-    // sort(arr.begin(), arr.end());
-    // int largest = arr[n-1];
-    // int sLargest = -1;
-    // for(int i = n-2; i >= 0; i--) {
-    //     if(arr[i] != largest) {
-    //         sLargest = arr[i];
-    //         break;
-    //     }
-    // }
-
-    // cout<<sLargest;
+    return sLargest;
+}
 
 
-    // BETTER      TC = O(2n)       SC = O(1)
+// BETTER       TC = O(2n)       SC = O(1)
 
-    // int largest = arr[0];
-    // int sLargest = -1;
-    // for(int n : arr) {
-    //     if(n > largest) largest = n;
-    // }
+int better(vector<int> &arr, int n) {
+
+    int largest = arr[0];
+    int sLargest = -1;
+    for(int n : arr) {
+        if(n > largest) largest = n;
+    }
     
-    // for(int n : arr) {
-    //     if(n > sLargest && n != largest) {
-    //         sLargest = n;
-    //     }
-    // }
+    for(int n : arr) {
+        if(n > sLargest && n != largest) {
+            sLargest = n;
+        }
+    }
     
-    // cout<<sLargest;
+    return sLargest;
+}
 
 
-    // OPTIMAL      TC = O(n)       SC = O(1)
+// OPTIMAL      TC = O(n)       SC = O(1)
+
+int optimal(vector<int> arr, int n) {
 
     int largest = arr[0];
     int sLargest = -1;
@@ -55,7 +56,22 @@ int main() {
             sLargest = n;
         }
     }
-    cout<<sLargest;
+
+    return sLargest;
+}
+
+
+int main() {
+    int n;
+    cin>>n;
+
+    vector<int> arr(n);
+
+    for(int &i : arr) cin>>i;
+
+    cout<<brute(arr, n)<<endl;
+    cout<<better(arr, n)<<endl;
+    cout<<optimal(arr, n)<<endl;
 
     return 0;
 }
