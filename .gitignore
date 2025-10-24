@@ -1,0 +1,21 @@
+# VSCode
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Competitive Programming Helper
+.cph/
+
+# C++ build files
+*.out
+*.exe
+*.o
+*.obj
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
