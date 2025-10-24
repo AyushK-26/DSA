@@ -5,7 +5,6 @@ using namespace std;
 
 
 // BRUTE        TC = O(n*logn)      SC = O(n) MS / O(1) QS
-
 int brute(vector<int> &arr, int n) {
 
     sort(arr.begin(), arr.end());
@@ -14,7 +13,6 @@ int brute(vector<int> &arr, int n) {
 
 
 // OPTIMAL      TC = O(n)       SC = O(1)
-
 int optimal(vector<int> &arr, int n) {
 
     int largest = arr[0];

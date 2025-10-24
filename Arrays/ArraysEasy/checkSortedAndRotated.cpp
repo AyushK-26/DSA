@@ -4,8 +4,7 @@ using namespace std;
 
 
 // OPTIMAL      TC = O(n)       SC = O(1)
-
-int optimal(vector<int> &arr, int n) {
+bool optimal(vector<int> &arr, int n) {
     int breakCount = 0;
 
     for(int i = 1; i < n; i++) {
