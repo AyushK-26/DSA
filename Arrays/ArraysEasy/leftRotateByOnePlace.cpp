@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-// OPTIMAL      TC = O(n)       SC = o(1)
+// OPTIMAL      TC = O(n)       SC = O(1)
 void optimal(vector<int> &arr, int n) {
     int temp = arr[0];
     for(int i = 1; i < n; i++) {
