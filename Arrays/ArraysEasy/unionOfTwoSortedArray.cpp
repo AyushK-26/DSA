@@ -80,4 +80,5 @@ int main() {
     cout<<endl;
     for(int e : optimalUnion) cout<<e<<" ";
 
+    return 0;
 }

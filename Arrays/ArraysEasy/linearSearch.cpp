@@ -19,4 +19,6 @@ int main() {
     for(int &i : arr) cin>>i;
 
     cout<<optimal(arr, n, target);
+
+    return 0;
 }
