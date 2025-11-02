@@ -27,6 +27,7 @@ int brute(vector<int> arr, int n, int k) {
 
 
 // BETTER        ->      TC = O(n)     SC = O(n)
+// Better for positives & zeroes only, optimal for negatives.
 int better(vector<int> arr, int n, int k) {
     unordered_map<int, int> presumIndex;
 
@@ -41,7 +42,7 @@ int better(vector<int> arr, int n, int k) {
             maxi = max(maxi, i-presumIndex[presum-k]);
         }
 
-        presumIndex[presum] = i;
+        if(presumIndex.find(presum) == presumIndex.end()) presumIndex[presum] = i;
     }
 
     return maxi;
@@ -49,6 +50,7 @@ int better(vector<int> arr, int n, int k) {
 
 
 // OPTIMAL        ->      TC = O(2n)     SC = O(1)
+// For positives and zeroes.
 int optimal(vector<int> arr, int n, int k) {
     int presum = arr[0];
     int maxi = 0;
