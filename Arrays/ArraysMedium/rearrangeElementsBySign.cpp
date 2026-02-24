@@ -4,7 +4,7 @@ using namespace std;
 
 
 // OPTIMAL        ->      TC = O(2n)     SC = O(n)
-void brute(vector<int> &arr, int n) {
+void optimal(vector<int> &arr, int n) {
     int posIdx = 0;
     int negIdx = 1;
 
@@ -32,7 +32,7 @@ int main() {
     vector<int> arr(n);
     for(int &i : arr) cin>>i;
 
-    brute(arr, n);
+    optimal(arr, n);
 
     for(int x : arr) cout<<x<<" ";
 
