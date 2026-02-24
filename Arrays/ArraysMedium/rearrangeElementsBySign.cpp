@@ -3,7 +3,7 @@
 using namespace std;
 
 
-// BRUTE        ->      TC = O(2n)     SC = O(n)
+// OPTIMAL        ->      TC = O(2n)     SC = O(n)
 void brute(vector<int> &arr, int n) {
     int posIdx = 0;
     int negIdx = 1;
