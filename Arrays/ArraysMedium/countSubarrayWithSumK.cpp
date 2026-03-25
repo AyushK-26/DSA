@@ -26,12 +26,12 @@ int optimal(vector<int> arr, int n, int k) {
 
     int presum = 0;
     int count = 0;
+    
+    presumFreq[0] = 1;
 
     for(int i = 0; i < n; i++) {
         presum += arr[i];
         
-        if(presum == k) count++;
-    
         if(presumFreq.find(presum-k) != presumFreq.end()) {
             count += presumFreq[presum-k];
         }
