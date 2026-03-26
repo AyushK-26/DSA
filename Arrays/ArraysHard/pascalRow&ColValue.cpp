@@ -6,7 +6,6 @@ using namespace std;
 // Not suitable for large values:
 // Factorials grow very fast → overflow even in long long
 // Intermediate values exceed range before division
-
 long long fact(int n) {
     if(n == 0 || n == 1) return 1;
     return n*fact(n-1);
@@ -20,7 +19,6 @@ int brute(int row, int col) {
 
 
 // OPTIMAL        ->      TC = O(min(r, n-r))     SC = O(1)
-
 int ncr(int n, int r) {
     int mini = min(r, n-r);
 

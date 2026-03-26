@@ -25,7 +25,8 @@ vector<int> brute(int row) {
     return ans;
 }
 
-// BRUTE        ->      TC = O(row)    SC = O(row)
+
+// OPTIMAL        ->      TC = O(row)    SC = O(row)
 vector<int> optimal(int row) {
     vector<int> ans = {1};
 
