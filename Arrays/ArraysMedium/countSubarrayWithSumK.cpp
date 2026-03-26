@@ -53,4 +53,5 @@ int main() {
     cout<<brute(arr, n, k)<<endl;
     cout<<optimal(arr, n, k)<<endl;
 
+    return 0;
 }

@@ -20,11 +20,10 @@ int brute(int row, int col) {
 
 
 // OPTIMAL        ->      TC = O(min(r, n-r))     SC = O(1)
-int optimal(int row, int col) {
-    int n = row-1;
-    int r = col-1;
 
+int ncr(int n, int r) {
     int mini = min(r, n-r);
+
     long long res = 1;
     for(int i = 0; i < mini; i++) {
         res = res*(n--)/(i+1);
@@ -33,10 +32,17 @@ int optimal(int row, int col) {
     return res;
 }
 
+int optimal(int row, int col) {
+    return ncr(row-1, col-1);
+}
+
+
 int main() {
     int row, col;
     cin>>row>>col;
 
     cout<<brute(row, col)<<endl;
     cout<<optimal(row, col)<<endl;
+
+    return 0;
 }
