@@ -52,18 +52,21 @@ vector<vector<int>> optimal1(int rows) {
 
 
 // OPTIMAL 2        ->      TC = O(rows^2)   SC = O(rows^2)
+vector<int> pascalRow(int row) {
+    vector<int> ans = {1};
+    for(int col = 1; col < row; col++) {
+        int res = ans.back()*(row-col)/col;
+        ans.push_back(res);
+    }
+    return ans;
+}
+
 vector<vector<int>> optimal2(int rows) {
     vector<vector<int>> pascalTriangle;
 
     for(int row = 1; row <= rows; row++) {
-        vector<int> temp = {1};
-        for(int col = 1; col < row; col++) {
-            int res = temp.back()*(row-col)/col;
-            temp.push_back(res);
-        }
-        pascalTriangle.push_back(temp);
+        pascalTriangle.push_back(pascalRow(row));
     }
-
     return pascalTriangle;
 }
 
