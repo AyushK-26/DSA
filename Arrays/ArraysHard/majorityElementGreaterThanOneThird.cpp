@@ -29,7 +29,7 @@ vector<int> brute(vector<int> arr, int n) {
 }
 
 
-// BETTER        ->      TC = O(2n)     SC = O(n)
+// BETTER        ->      TC = O(n)     SC = O(n)
 vector<int> better(vector<int> arr, int n) {
     vector<int> ans;
     
@@ -45,6 +45,7 @@ vector<int> better(vector<int> arr, int n) {
 }
 
 
+// OPTIMAL        ->      TC = O(2n)     SC = O(1)
 vector<int> optimal(vector<int> arr, int n) {
     vector<int> ans;
 
