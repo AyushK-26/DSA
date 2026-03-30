@@ -5,7 +5,7 @@
 using namespace std;
 
 
-// BRUTE        ->      TC = O(n^3 * log(no. of unique triplets))
+// BRUTE        ->      TC = O(n^3 * log(No. of unique triplets))
 //                      SC = O(2*(No. of unique triplets))
 vector<vector<int>> brute(vector<int> arr, int n) {
     set<vector<int>> uniqueTriplets;
@@ -28,7 +28,7 @@ vector<vector<int>> brute(vector<int> arr, int n) {
 }
 
 
-// BETTER        ->      TC = O(n^2 * log n * log(no. of unique triplets))
+// BETTER        ->      TC = O(n^2 * log n * log(No. of unique triplets))
 //                       SC = O(n) + O(2*(No. of unique triplets))
 vector<vector<int>> better(vector<int> arr, int n) {
     set<vector<int>> uniqueTriplets;
