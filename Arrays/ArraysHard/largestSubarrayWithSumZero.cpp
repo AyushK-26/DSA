@@ -26,14 +26,16 @@ int brute(vector<int> arr, int n) {
 
 // OPTIMAL        ->      TC = O(n)     SC = O(n)
 int optimal(vector<int> arr, int n) {
-    int largest = 0;
-
     unordered_map<int, int> hashmap;
+    
+    int largest = 0;
     int presum = 0;
+
+    hashmap[0] = -1;
 
     for(int i = 0; i < n; i++) {
         presum += arr[i];
-
+        
         if(hashmap.find(presum) != hashmap.end()) {
             largest = max(largest, i-hashmap[presum]);
         } 
