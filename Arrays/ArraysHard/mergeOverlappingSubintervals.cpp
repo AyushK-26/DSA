@@ -54,16 +54,16 @@ int main() {
         for(int &i : interval) cin>>i;
     }
 
-    vector<vector<int>> optimalAns = optimal(arr, n);
-    for(auto interval : optimalAns) {
+    vector<vector<int>> bruteAns = brute(arr, n);
+    for(auto interval : bruteAns) {
         for(int x : interval) cout<<x<<" ";
         cout<<endl;
     }
-
+    
     cout<<endl;
-
-    vector<vector<int>> bruteAns = brute(arr, n);
-    for(auto interval : bruteAns) {
+    
+    vector<vector<int>> optimalAns = optimal(arr, n);
+    for(auto interval : optimalAns) {
         for(int x : interval) cout<<x<<" ";
         cout<<endl;
     }
