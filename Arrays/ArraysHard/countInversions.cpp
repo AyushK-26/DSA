@@ -17,7 +17,9 @@ int brute(vector<int> arr, int n) {
 
 
 // OPTIMAL        ->      TC = O(n*logn)     SC = O(n): temp vector + O(logn): depth of recursion 
-void merge(vector<int> &arr, int low, int mid, int high, int &count) {
+int merge(vector<int> &arr, int low, int mid, int high) {
+    int count = 0;
+    
     vector<int> temp;
     int left = low;
     int right = mid+1;
@@ -40,23 +42,26 @@ void merge(vector<int> &arr, int low, int mid, int high, int &count) {
     for(int i = 0; i < temp.size(); i++) {
         arr[low+i] = temp[i];
     }
+
+    return count;
 }
 
-void ms(vector<int> &arr, int low, int high, int &count) {
-    if(low >= high) return;
+int ms(vector<int> &arr, int low, int high) {
+    int count = 0;
+    if(low >= high) return count;
     int mid = ((high-low)/2)+low;
 
-    ms(arr, low, mid, count);
-    ms(arr, mid+1, high, count);
+    count += ms(arr, low, mid);
+    count += ms(arr, mid+1, high);
 
-    merge(arr, low, mid, high, count);
+    count += merge(arr, low, mid, high);
+
+    return count;
 }
 
 
 int optimal(vector<int> arr, int n) {
-    int count = 0;
-    ms(arr, 0, n-1, count);
-    return count;
+    return ms(arr, 0, n-1);
 }
 
 
