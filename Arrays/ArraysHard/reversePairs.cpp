@@ -19,22 +19,29 @@ int brute(vector<int> arr, int n) {
 
 
 // OPTIMAL        ->      TC = O(n*logn)     SC = O(n): temp vector + O(logn): depth of recursion
-int merge(vector<int> &arr, int low, int mid, int high) {
+int countPairs(vector<int> &arr, int low, int mid, int high) {
     int count = 0;
-    
-    vector<int> temp;
+
     int left = low;
     int right = mid+1;
 
-    while(left <= mid && right <= high) {
-        if(arr[left] > 2LL *arr[right]) {
-            count += mid-left+1;
+    while(left <= mid) {
+        while(right <= high && arr[left] > 2LL * arr[right]) {
             right++;
-        } else left++;
+        }
+        count += right-(mid+1);
+        left++;
     }
+
+    return count;
+}
+
+void merge(vector<int> &arr, int low, int mid, int high) {    
+    vector<int> temp;
+
+    int left = low;
+    int right = mid+1;
     
-    left = low;
-    right = mid+1;
     while(left <= mid && right <= high) {
         if(arr[left] <= arr[right]) {
             temp.push_back(arr[left++]);
@@ -52,8 +59,6 @@ int merge(vector<int> &arr, int low, int mid, int high) {
     for(int i = 0; i < temp.size(); i++) {
         arr[low+i] = temp[i];
     }
-
-    return count;
 }
 
 int ms(vector<int> &arr, int low, int high) {
@@ -64,8 +69,9 @@ int ms(vector<int> &arr, int low, int high) {
     
     count += ms(arr, low, mid);
     count += ms(arr, mid+1, high);
+    count += countPairs(arr, low, mid, high);
 
-    count +=  merge(arr, low, mid, high);
+    merge(arr, low, mid, high);
 
     return count;
 }
