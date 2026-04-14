@@ -3,6 +3,7 @@
 using namespace std;
 
 
+// Floor      ->      TC = O(logn)     SC = O(1)
 int floor(vector<int> arr, int n, int target) {
     int ans = -1;
     int low = 0, high = n-1;
@@ -18,6 +19,8 @@ int floor(vector<int> arr, int n, int target) {
     return ans;
 }
 
+
+// Ceil      ->      TC = O(logn)     SC = O(1)
 int ceil(vector<int> arr, int n, int target) {
     int ans = -1;
     int low = 0, high = n-1;
@@ -32,6 +35,7 @@ int ceil(vector<int> arr, int n, int target) {
 
     return ans;
 }
+
 
 int main() {
     int n, target;
