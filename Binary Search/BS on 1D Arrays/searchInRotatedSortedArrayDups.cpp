@@ -3,7 +3,7 @@
 using namespace std;
 
 // OPTIMAL      ->      TC = O(n/2): Worst Case    SC = O(1)
-//                      TC = Θ(log*n): Avg. Case 
+//                      TC = Θ(log n): Avg. Case 
 bool optimal(vector<int> arr, int n, int target) {
     int low = 0;
     int high = n-1;

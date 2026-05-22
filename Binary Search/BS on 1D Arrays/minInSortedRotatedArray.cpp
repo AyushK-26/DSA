@@ -3,7 +3,7 @@
 #include <climits>
 using namespace std;
 
-// OPTIMAL      ->      TC = O(log*n)    SC = O(1)
+// OPTIMAL      ->      TC = O(log n)    SC = O(1)
 int optimal(vector<int> arr, int n) {
     int low = 0;
     int high = n-1;
