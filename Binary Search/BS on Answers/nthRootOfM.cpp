@@ -3,26 +3,6 @@
 using namespace std;
 
 
-// BRUTE      ->      TC = O(n * m)    SC = O(1)
-int brute(int n, int m) {
-    for(int i = 1; i <= m; i++) {
-        long long val = 1;
-
-        for(int j = 1; j <= n; j++) {
-            val = 1LL * val * i;
-
-            if(val > m) break;
-        }
-
-        if(val == m) return i;
-        else if(val > m) break;
-    }
-
-    return -1;
-}
-
-
-// OPTIMAL      ->      TC = O(n*log m)    SC = O(1)
 long long calculatePow(int b, int n, int m) {
         long long val = 1;
 
@@ -34,6 +14,20 @@ long long calculatePow(int b, int n, int m) {
         return val;
 }
 
+// BRUTE      ->      TC = O(n * m)    SC = O(1)
+int brute(int n, int m) {
+    for(int i = 1; i <= m; i++) {
+        long long val = calculatePow(i, n, m);
+
+        if(val == m) return i;
+        else if(val > m) break;
+    }
+
+    return -1;
+}
+
+
+// OPTIMAL      ->      TC = O(n*log m)    SC = O(1)
 int optimal(int n, int m) {
     if(m == 0) return 0;
 
