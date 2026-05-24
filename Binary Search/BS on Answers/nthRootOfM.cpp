@@ -3,11 +3,11 @@
 using namespace std;
 
 
-long long calculatePow(int b, int n, int m) {
+long long calculatePow(int base, int n, int m) {
         long long val = 1;
 
         for(int i = 1; i <= n; i++) {
-            val = 1LL * val * b;
+            val = 1LL * val * base;
             if(val > m) break;
         }
 
@@ -28,6 +28,7 @@ int brute(int n, int m) {
 
 
 // OPTIMAL      ->      TC = O(n*log m)    SC = O(1)
+
 int optimal(int n, int m) {
     if(m == 0) return 0;
 
