@@ -29,11 +29,11 @@ int optimal(vector<int> coordinates, int n, int cows) {
     int high = coordinates[n-1]-coordinates[0];
 
     while(low <= high) {
+        //  mid -> minimum distance between each cow
         int mid = low+(high-low)/2;
 
-        //  mid -> minimum distance between each cow
         //  Can we place all cows while maintaining at least this distance?
-
+        //  Place cows such that the minimum distance between them is maximized
         if(isPossible(coordinates, n, cows, mid)) low = mid+1;
         else high = mid-1;
     }
