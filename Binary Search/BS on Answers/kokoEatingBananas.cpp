@@ -4,7 +4,7 @@
 using namespace std;
 
 
-// BRUTE      ->      TC = O(k * n)    SC = O(1)
+// BRUTE      ->      TC = O(n * max(piles))    SC = O(1)
 int brute(vector<int> piles, int n, int h) {
     int maxBananas = 0;
     int hoursTook = 0;
@@ -24,7 +24,7 @@ int brute(vector<int> piles, int n, int h) {
     return -1;
 }
 
-// OPTIMAL      ->      TC = O(n*log(max(piles)))    SC = O(1)
+// OPTIMAL      ->      TC = O(n * log(max(piles)))    SC = O(1)
 int optimal(vector<int> piles, int n, int h) {
     int maxBananas = 0;
     for(int bananas : piles) maxBananas = max(maxBananas, bananas);
