@@ -31,6 +31,7 @@ int brute(vector<int> candies, int n, int k) {
     return ans;
 }
 
+
 // OPTIMAL      ->      TC = O(n * log(max(candies)))    SC = O(1)
 int optimal(vector<int> candies, int n, int k) {
     int maxCandies = 0;
