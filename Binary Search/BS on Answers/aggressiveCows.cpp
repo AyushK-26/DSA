@@ -14,6 +14,8 @@ bool isPossible(vector<int> coordinates, int n, int cows, int distance) {
             cowsPlaced++;
             lastCowPlaced = coordinates[i];
         }
+
+        if(cowsPlaced >= cows) break;
     }
 
     return cowsPlaced >= cows; 
@@ -28,6 +30,9 @@ int optimal(vector<int> coordinates, int n, int cows) {
 
     while(low <= high) {
         int mid = low+(high-low)/2;
+
+        //  mid -> minimum distance between each cow
+        //  Can we place all cows while maintaining at least this distance?
 
         if(isPossible(coordinates, n, cows, mid)) low = mid+1;
         else high = mid-1;
