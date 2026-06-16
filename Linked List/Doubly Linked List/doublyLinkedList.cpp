@@ -2,47 +2,56 @@
 #include <vector>
 using namespace std;
 
-struct Node {
+class Node {
+    public:
     int data;
+    Node* prev;
     Node* next;
 
-    Node(int data, Node* next = nullptr) {
+    Node(int data, Node* prev = nullptr, Node* next = nullptr) {
         this->data = data;
+        this->prev = prev;
         this->next = next;
     }
 };
 
-Node* convertToLL(vector<int> arr) {
+Node* convertToDLL(vector<int> arr) {
     Node* head = new Node(arr[0]);
     Node* mover = head;
 
     for(int i = 1; i < arr.size(); i++) {
         Node* temp = new Node(arr[i]);
         mover->next = temp;
+        temp->prev = mover;
         mover = temp;
     }
 
     return head;
 }
 
-void traverseLL(Node* &head) {
+void traverseDLL(Node* &head) {
     Node* temp = head;
-
-    while(temp) {
+    while(temp != nullptr) {
         cout<<temp->data<<" ";
         temp = temp->next;
     }
-
     cout<<endl;
 }
 
 void deleteHead(Node* &head) {
-    if(head == nullptr) return; 
-
-    Node* temp = head;
-    head = head->next;
+    if(head == nullptr) return;
     
-    delete temp;
+    if(head->next == nullptr) {
+        delete head;
+        head = nullptr;
+        return;
+    }
+
+    Node* nodeToDelete = head;
+    head = head->next;
+    head->prev = nullptr;
+
+    delete nodeToDelete;
 }
 
 void deleteTail(Node* &head) {
@@ -54,38 +63,35 @@ void deleteTail(Node* &head) {
     }
 
     Node* temp = head;
-    while(temp->next->next != nullptr) {
+    while(temp->next != nullptr) {
         temp = temp->next;
     }
-
-    Node* nodeToDelete = temp->next;
-    temp->next = nullptr;
-    delete nodeToDelete;
+    temp->prev->next = nullptr;
+    delete temp;
 }
 
 void deletePos(Node* &head, int k) {
     if(head == nullptr) return;
     if(k == 1) {
         deleteHead(head);
-        return; 
+        return;
     }
-
-    int count = 1;
+    
     Node* temp = head;
-    //traverse either till the end of list or reached the node before nodeToDelete
-    while(temp != nullptr && count < k-1) {
+    int count = 1;
+    while(temp != nullptr && count < k) {
         temp = temp->next;
         count++;
     }
 
-    //end of list or the last node: nodeToDelete doesn't exist
-    //ALWAYS CHECK PTRS and NOT VARIABLES
-    if(temp == nullptr || temp->next == nullptr) return;
+    if(temp == nullptr) return;
+    
+    if(temp->next != nullptr) {
+        temp->next->prev = temp->prev;
+    }
 
-    //delete the correct node
-    Node* nodeToDelete = temp->next;
-    temp->next = nodeToDelete->next;
-    delete nodeToDelete;
+    temp->prev->next = temp->next;
+    delete temp;
 }
 
 void deleteElement(Node* &head, int element) {
@@ -96,13 +102,14 @@ void deleteElement(Node* &head, int element) {
     }
 
     Node* temp = head;
-    //stops at temp->next == nullptr because accessing temp->next->data value
-    while(temp->next != nullptr) {
-        if(temp->next->data == element) {
-            Node* nodeToDelete = temp->next;
-            temp->next = nodeToDelete->next;
+    while(temp != nullptr) {
+        if(temp->data == element) {
+            if(temp->next != nullptr) {
+                temp->next->prev = temp->prev;
+            }
 
-            delete nodeToDelete;
+            temp->prev->next = temp->next;
+            delete temp;
             return;
         }
         temp = temp->next;
@@ -112,13 +119,18 @@ void deleteElement(Node* &head, int element) {
 void insertHead(Node* &head, int data) {
     Node* nodeToInsert = new Node(data);
 
+    if(head == nullptr) {
+        head = nodeToInsert;
+        return;
+    }
+
+    head->prev = nodeToInsert;
     nodeToInsert->next = head;
     head = nodeToInsert;
 }
 
 void insertTail(Node* &head, int data) {
     Node* nodeToInsert = new Node(data);
-    
     if(head == nullptr) {
         head = nodeToInsert;
         return;
@@ -128,8 +140,8 @@ void insertTail(Node* &head, int data) {
     while(temp->next != nullptr) {
         temp = temp->next;
     }
-
     temp->next = nodeToInsert;
+    nodeToInsert->prev = temp;
 }
 
 void insertPos(Node* &head, int data, int k) {
@@ -148,21 +160,29 @@ void insertPos(Node* &head, int data, int k) {
     if(temp == nullptr) return;
 
     Node* nodeToInsert = new Node(data);
-    nodeToInsert->next = temp->next;
+
+    if(temp->next != nullptr) {
+        temp->next->prev = nodeToInsert;
+        nodeToInsert->next = temp->next;
+    }
     temp->next = nodeToInsert;
+    nodeToInsert->prev = temp;
 }
 
 void insertAfter(Node* &head, int data, int element) {
     if(head == nullptr) return;
-
+    
     Node* temp = head;
 
     while(temp != nullptr) {
         if(temp->data == element) {
             Node* nodeToInsert = new Node(data);
-            nodeToInsert->next = temp->next;
+            if(temp->next != nullptr) {
+                temp->next->prev = nodeToInsert;
+                nodeToInsert->next = temp->next;
+            }
             temp->next = nodeToInsert;
-
+            nodeToInsert->prev = temp;
             return;
         }
         temp = temp->next;
@@ -171,34 +191,32 @@ void insertAfter(Node* &head, int data, int element) {
 
 int main() {
     vector<int> arr = {1,2,3,4};
+    Node* head = convertToDLL(arr);
+    traverseDLL(head);
 
-    Node* head = convertToLL(arr);
-
-    traverseLL(head);
-
-    deleteHead(head);
-    traverseLL(head);
+    deleteHead(head);    
+    traverseDLL(head);
 
     deleteTail(head);
-    traverseLL(head);
+    traverseDLL(head);
 
     deletePos(head, 1);
-    traverseLL(head);
+    traverseDLL(head);
 
     deleteElement(head, 3);
-    traverseLL(head);
+    traverseDLL(head);
 
     insertHead(head, 10);
-    traverseLL(head);
+    traverseDLL(head);
 
     insertTail(head, 20);
-    traverseLL(head);
+    traverseDLL(head);
 
     insertPos(head, 30, 2);
-    traverseLL(head);
+    traverseDLL(head);
 
     insertAfter(head, 40, 10);
-    traverseLL(head);
+    traverseDLL(head);
 
     return 0;
 }
