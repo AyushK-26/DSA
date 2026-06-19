@@ -42,6 +42,8 @@ void traverseLL(Node* &head) {
 }
 
 Node* optimal(Node* head) {
+    if(!head || !head->next) return head;
+    
     Node fakeHead0, fakeHead1, fakeHead2;
 
     Node* zeroMover = &fakeHead0;
