@@ -43,7 +43,7 @@ void traverseLL(Node* &head) {
 
 Node* optimal(Node* head) {
     if(!head || !head->next) return head;
-    
+
     Node fakeHead0, fakeHead1, fakeHead2;
 
     Node* zeroMover = &fakeHead0;
@@ -54,24 +54,20 @@ Node* optimal(Node* head) {
     while(temp) {
         if(temp->data == 0) {
             zeroMover->next = temp;
-            zeroMover = zeroMover->next;
+            zeroMover = temp;
         } else if(temp->data == 1) {
             oneMover->next = temp;
-            oneMover = oneMover->next;
+            oneMover = temp;
         }else {
             twoMover->next = temp;
-            twoMover = twoMover->next;
+            twoMover = temp;
         }
 
         temp = temp->next;
     }
 
-    if(fakeHead1.next) {
-        zeroMover->next = fakeHead1.next;
-        oneMover->next = fakeHead2.next;
-    } else {
-        zeroMover->next = fakeHead2.next;
-    }
+    zeroMover->next = fakeHead1.next ? fakeHead1.next : fakeHead2.next;
+    oneMover->next = fakeHead2.next;
     twoMover->next = nullptr;
 
     return fakeHead0.next;
