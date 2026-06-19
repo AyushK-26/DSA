@@ -8,7 +8,7 @@ class Node {
     Node* next;
 
     Node() {
-        this->data = 0;
+        this->data = -1;
         this->next = nullptr;
     }
 
