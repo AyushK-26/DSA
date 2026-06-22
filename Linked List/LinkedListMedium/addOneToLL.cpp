@@ -54,41 +54,40 @@ Node* reverseList(Node* head) {
 
 
 //      TC = O(3n)      SC = O(n): Recursion/Call stack
-Node* optimal1(Node* head) {
+//                      SC = O(1): For Iterative Reverse
+Node* better1(Node* head) {
+    if(!head) return head;
+
     head = reverseList(head);
 
-    Node* prev = nullptr;
     Node* temp = head;
     int carry = 1;
 
     while(temp && carry) {
         int plusOne = temp->data + carry;
 
-        if(plusOne >= 10) {
-            temp->data = plusOne % 10;
-            carry = 1;
-        } else {
-            temp->data = plusOne;
-            carry = 0;
-        }
+        temp->data = plusOne % 10;
+        carry = plusOne / 10;
 
-        prev = temp;
         temp = temp->next;
     }
     
+    head = reverseList(head);
     if(carry) {
         Node* nodeToInsert = new Node(carry);
-        prev->next = nodeToInsert;
+        nodeToInsert->next = head;
+        head = nodeToInsert;
     }
     
-    head = reverseList(head);
-
     return head;
 }
 
 
 //      TC = O(3n)      SC = O(n): Recursion/Call stack
-Node* optimal2(Node* head) {
+//                      SC = O(1): For Iterative Reverse
+Node* better2(Node* head) {
+    if(!head) return head;
+
     head = reverseList(head);
 
     Node* temp = head;
@@ -111,6 +110,33 @@ Node* optimal2(Node* head) {
     return head;
 }
 
+
+//      TC = O(n)      SC = O(n): Recursion/Call stack
+int addOne(Node* head) {
+    if(!head) return 1;
+ 
+    int carry = addOne(head->next);
+    if(!carry) return 0;
+    
+    int sum = head->data + carry;
+    head->data = sum % 10;
+    return sum / 10;
+}
+
+Node* optimal(Node* head) {
+    if(!head) return head;
+    int carry = addOne(head);
+
+    if(carry) {
+        Node* nodeToInsert = new Node(carry);
+        nodeToInsert->next = head;
+        head = nodeToInsert;
+    }
+
+    return head;
+}
+
+
 int main() {
     int n;
     cin>>n;
@@ -120,7 +146,10 @@ int main() {
 
     Node* head = convertToLL(arr);
     
-    head = optimal2(head);
+    // head = better1(head);
+    // head = better2(head);
+    head = optimal(head);
+
     traverseLL(head);
     
     return 0;
